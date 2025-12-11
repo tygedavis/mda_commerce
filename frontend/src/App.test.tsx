@@ -43,8 +43,8 @@ describe('App Component', () => {
 
         await waitFor(() => {
             expect(screen.getByText("Test Hero")).toBeInTheDocument();
-            expect(screen.getByText("About Test")).toBeInTheDocument();
         });
+        // About Test removed as it's no longer on landing page
     });
 
     it('shows error message on fetch failure', async () => {
