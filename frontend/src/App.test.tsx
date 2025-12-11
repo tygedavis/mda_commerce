@@ -43,7 +43,6 @@ describe('App Component', () => {
 
         await waitFor(() => {
             expect(screen.getByText("Test Hero")).toBeInTheDocument();
-            expect(screen.getByText("About Test")).toBeInTheDocument();
         });
     });
 

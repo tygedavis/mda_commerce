@@ -31,3 +31,12 @@ export interface LandingPageData {
     about: AboutSection;
     social_feed: SocialPost[];
 }
+
+export interface ShopPageData {
+    items: Artwork[];
+}
+
+export interface ContactPageData {
+    title: string;
+    description: string;
+}
