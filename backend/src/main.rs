@@ -8,6 +8,9 @@ use serde_json::{Value, json};
 use tower_http::cors::{CorsLayer, Any};
 use std::net::SocketAddr;
 
+#[cfg(test)]
+mod tests;
+
 #[derive(Serialize, Deserialize)]
 struct HeroSection {
     title: String,
@@ -68,11 +71,11 @@ async fn main() {
     axum::serve(listener, app).await.unwrap();
 }
 
-async fn health_check() -> Json<Value> {
+pub(crate) async fn health_check() -> Json<Value> {
     Json(json!({ "status": "ok", "message": "Health Check: OK" }))
 }
 
-async fn get_landing_page_data() -> Json<LandingPageData> {
+pub(crate) async fn get_landing_page_data() -> Json<LandingPageData> {
     let data = LandingPageData {
         hero: HeroSection {
             title: "Timeless Beauty in Every Stroke".to_string(),

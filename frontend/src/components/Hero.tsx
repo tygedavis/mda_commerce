@@ -24,9 +24,9 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
                 <p className="text-lg md:text-xl font-light mb-10 tracking-wide max-w-2xl mx-auto opacity-90">
                     {data.subtitle}
                 </p>
-                <button className="bg-white text-art-black px-10 py-4 uppercase tracking-widest text-sm hover:bg-art-gold hover:text-white transition-all duration-300 border border-white hover:border-art-gold">
+                <a href="#collection" className="bg-white text-art-black px-10 py-4 uppercase tracking-widest text-sm hover:bg-art-gold hover:text-white transition-all duration-300 border border-white hover:border-art-gold inline-block">
                     {data.cta_text}
-                </button>
+                </a>
             </div>
         </section>
     );
