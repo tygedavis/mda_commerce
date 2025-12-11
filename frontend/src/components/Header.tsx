@@ -10,10 +10,10 @@ const Header: React.FC = () => {
                 </div>
 
                 {/* Navigation */}
-                <nav className="hidden md:flex items-center space-x-4 text-sm tracking-wide uppercase font-light">
-                    <a href="#collection" className="px-4 py-2 rounded transition-all duration-300 hover:bg-art-black hover:text-white">Collection</a>
-                    <a href="#about" className="px-4 py-2 rounded transition-all duration-300 hover:bg-art-black hover:text-white">About</a>
-                    <a href="#contact" className="px-4 py-2 rounded transition-all duration-300 hover:bg-art-black hover:text-white">Contact</a>
+                <nav className="hidden md:flex items-stretch h-full space-x-0 text-sm tracking-wide uppercase font-light">
+                    <a href="#collection" className="flex items-center px-6 transition-all duration-300 hover:bg-art-black hover:text-art-gold">Collection</a>
+                    <a href="#about" className="flex items-center px-6 transition-all duration-300 hover:bg-art-black hover:text-art-gold">About</a>
+                    <a href="#contact" className="flex items-center px-6 transition-all duration-300 hover:bg-art-black hover:text-art-gold">Contact</a>
                 </nav>
 
                 {/* Cart / Actions (Placeholder) */}

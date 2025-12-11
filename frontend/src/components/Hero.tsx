@@ -6,6 +6,14 @@ interface HeroProps {
 }
 
 const Hero: React.FC<HeroProps> = ({ data }) => {
+    const scrollToCollection = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault();
+        const element = document.getElementById('collection');
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     return (
         <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
             {/* Background Image with Overlay */}
@@ -24,7 +32,11 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
                 <p className="text-lg md:text-xl font-light mb-10 tracking-wide max-w-2xl mx-auto opacity-90">
                     {data.subtitle}
                 </p>
-                <a href="#collection" className="bg-white text-art-black px-10 py-4 uppercase tracking-widest text-sm hover:bg-art-gold hover:text-white transition-all duration-300 border border-white hover:border-art-gold inline-block">
+                <a
+                    href="#collection"
+                    onClick={scrollToCollection}
+                    className="bg-white text-art-black px-10 py-4 uppercase tracking-widest text-sm hover:bg-art-gold hover:text-white transition-all duration-300 border border-white hover:border-art-gold inline-block cursor-pointer"
+                >
                     {data.cta_text}
                 </a>
             </div>
