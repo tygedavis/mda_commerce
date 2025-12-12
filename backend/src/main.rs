@@ -9,12 +9,27 @@ use std::net::SocketAddr;
 
 mod models;
 mod handlers;
+mod db;
 
 #[cfg(test)]
 mod tests;
 
 #[tokio::main]
 async fn main() {
+    dotenv::dotenv().ok();
+
+    // Initialize Database
+    let _pool = match db::init_pool().await {
+        Ok(pool) => {
+            println!("✅ Connection to the database is successful!");
+            pool
+        },
+        Err(err) => {
+            eprintln!("🔥 Failed to connect to the database: {:?}", err);
+            std::process::exit(1);
+        }
+    };
+
     // CORS configuration
     let cors = CorsLayer::new()
         .allow_origin(Any)

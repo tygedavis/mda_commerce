@@ -26,3 +26,4 @@ yarn-error.log*
 # Rust (Backend)
 /backend/target/
 **/*.rs.bk
+backend/cloud-sql-proxy
