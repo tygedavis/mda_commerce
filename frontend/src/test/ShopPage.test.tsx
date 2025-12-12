@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import ShopPage from '../pages/ShopPage';
-import { ShopPageData } from '../types';
+import type { ShopPageData } from '../types';
 
 describe('ShopPage', () => {
     const mockData: ShopPageData = {
@@ -24,7 +24,7 @@ describe('ShopPage', () => {
     };
 
     beforeEach(() => {
-        global.fetch = vi.fn();
+        window.fetch = vi.fn();
     });
 
     afterEach(() => {
@@ -32,13 +32,13 @@ describe('ShopPage', () => {
     });
 
     it('renders loading state initially', () => {
-        (global.fetch as any).mockReturnValue(new Promise(() => {})); // Never resolves
+        (window.fetch as any).mockReturnValue(new Promise(() => { })); // Never resolves
         render(<ShopPage />);
         expect(screen.getByText(/Loading Shop.../i)).toBeInTheDocument();
     });
 
     it('renders items after fetch', async () => {
-        (global.fetch as any).mockResolvedValue({
+        (window.fetch as any).mockResolvedValue({
             json: async () => mockData,
         });
 
@@ -52,10 +52,10 @@ describe('ShopPage', () => {
     });
 
     it('renders error state on fetch failure', async () => {
-         (global.fetch as any).mockRejectedValue(new Error("API Error"));
-         render(<ShopPage />);
-         await waitFor(() => {
-             expect(screen.getByText(/Unable to load shop content/i)).toBeInTheDocument();
-         });
+        (window.fetch as any).mockRejectedValue(new Error("API Error"));
+        render(<ShopPage />);
+        await waitFor(() => {
+            expect(screen.getByText(/Unable to load shop content/i)).toBeInTheDocument();
+        });
     });
 });

@@ -8,8 +8,15 @@ pub async fn init_pool() -> Result<PgPool, sqlx::Error> {
     // The user constraint specifies the DB is at 127.0.0.1:5432 via Auth Proxy.
     // We rely on DATABASE_URL to reflect this (e.g. postgres://user:pass@127.0.0.1:5432/db).
 
-    PgPoolOptions::new()
+    let pool = PgPoolOptions::new()
         .max_connections(5)
         .connect(&database_url)
-        .await
+        .await?;
+
+    // Run migrations
+    sqlx::migrate!("./migrations")
+        .run(&pool)
+        .await?;
+
+    Ok(pool)
 }

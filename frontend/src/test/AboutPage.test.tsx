@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import AboutPage from '../pages/AboutPage';
-import { AboutSection } from '../types';
+import type { AboutSection } from '../types';
 
 describe('AboutPage', () => {
     const mockData: AboutSection = {
@@ -11,7 +11,7 @@ describe('AboutPage', () => {
     };
 
     beforeEach(() => {
-        global.fetch = vi.fn();
+        window.fetch = vi.fn();
     });
 
     afterEach(() => {
@@ -19,13 +19,13 @@ describe('AboutPage', () => {
     });
 
     it('renders loading state', () => {
-        (global.fetch as any).mockReturnValue(new Promise(() => {}));
+        (window.fetch as any).mockReturnValue(new Promise(() => { }));
         render(<AboutPage />);
         expect(screen.getByText(/Loading About.../i)).toBeInTheDocument();
     });
 
     it('renders content after fetch', async () => {
-        (global.fetch as any).mockResolvedValue({
+        (window.fetch as any).mockResolvedValue({
             json: async () => mockData,
         });
 

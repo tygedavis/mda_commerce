@@ -7,7 +7,7 @@ COPY frontend/ .
 RUN npm run build
 
 # Stage 2: Build Backend
-FROM rust:1.83-slim-bookworm AS backend-builder
+FROM rust:1.85-slim-bookworm AS backend-builder
 WORKDIR /app
 # Install system dependencies needed for building (e.g. pkg-config, unknown-linux-gnu linkers if needed)
 # For sqlx offline mode or build time DB checking, we might need SQLX_OFFLINE=true if no DB is present.
@@ -18,11 +18,15 @@ RUN apt-get update && apt-get install -y pkg-config libssl-dev
 COPY backend/Cargo.* ./
 # Create a dummy src/main.rs to build dependencies and cache them
 RUN mkdir src && echo "fn main() {}" > src/main.rs
+# Enable offline mode for sqlx to skip DB checks during build
+ENV SQLX_OFFLINE=true
+COPY backend/sqlx-data.json ./
 RUN cargo build --release
 RUN rm -rf src
 
 COPY backend/src src
 COPY backend/.env* ./
+COPY backend/migrations migrations
 # Re-build with actual source
 # Note: touches to main.rs ensure rebuild
 RUN touch src/main.rs

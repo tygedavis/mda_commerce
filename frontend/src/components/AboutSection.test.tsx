@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import AboutSection from '../components/AboutSection';
-import { AboutSection as AboutData } from '../types';
+import type { AboutSection as AboutData } from '../types';
 
 const MOCK_ABOUT: AboutData = {
     title: "About Title",
