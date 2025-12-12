@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import Hero from '../components/Hero';
-import { HeroSection } from '../types';
+import type { HeroSection } from '../types';
 
 const MOCK_HERO: HeroSection = {
     title: "Timeless Art",

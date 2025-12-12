@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import App from './App';
-import { LandingPageData } from './types';
+import type { LandingPageData } from './types';
 
 const MOCK_DATA: LandingPageData = {
     hero: {
@@ -20,7 +20,7 @@ const MOCK_DATA: LandingPageData = {
 };
 
 // Mock fetch
-global.fetch = vi.fn();
+window.fetch = vi.fn();
 
 describe('App Component', () => {
     beforeEach(() => {
@@ -29,13 +29,13 @@ describe('App Component', () => {
 
     it('shows loading state initially', () => {
         // Return a promise that never resolves immediately to test loading state
-        (global.fetch as any).mockReturnValue(new Promise(() => {}));
+        (window.fetch as any).mockReturnValue(new Promise(() => { }));
         render(<App />);
         expect(screen.getByText(/Loading Artistry/i)).toBeInTheDocument();
     });
 
     it('renders content after data fetch', async () => {
-        (global.fetch as any).mockResolvedValue({
+        (window.fetch as any).mockResolvedValue({
             json: async () => MOCK_DATA
         });
 
@@ -47,7 +47,7 @@ describe('App Component', () => {
     });
 
     it('shows error message on fetch failure', async () => {
-        (global.fetch as any).mockRejectedValue(new Error("API Error"));
+        (window.fetch as any).mockRejectedValue(new Error("API Error"));
 
         render(<App />);
 

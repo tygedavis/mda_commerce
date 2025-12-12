@@ -19,6 +19,7 @@ dist/
 build/
 .env
 .env.local
+.env.docker
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -26,3 +27,8 @@ yarn-error.log*
 # Rust (Backend)
 /backend/target/
 **/*.rs.bk
+backend/cloud-sql-proxy
+
+# Staging DB URL
+staging_db_url.txt
+gcp-sa-key.json

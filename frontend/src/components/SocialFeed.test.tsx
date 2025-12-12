@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import SocialFeed from '../components/SocialFeed';
-import { SocialPost } from '../types';
+import type { SocialPost } from '../types';
 
 const MOCK_POSTS: SocialPost[] = [
     { id: 1, image_url: "post1.jpg", link: "http://link1.com" },

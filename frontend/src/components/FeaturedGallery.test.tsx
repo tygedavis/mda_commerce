@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import FeaturedGallery from '../components/FeaturedGallery';
-import { Artwork } from '../types';
+import type { Artwork } from '../types';
 
 const MOCK_ITEMS: Artwork[] = [
     { id: 1, title: "Art 1", price: "$100", image_url: "art1.jpg", description: "Desc 1" },
