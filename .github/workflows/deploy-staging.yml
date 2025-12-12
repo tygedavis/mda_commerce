@@ -6,7 +6,6 @@ on:
       - staging
 
 env:
-  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   REGION: us-central1
   REPO_NAME: art-repo
   IMAGE_NAME: gallery-app
@@ -40,6 +39,8 @@ jobs:
         gcloud auth configure-docker us-central1-docker.pkg.dev
 
     - name: Build and Push Container
+      env:
+        PROJECT_ID: ${{ steps.auth.outputs.project_id }}
       run: |
         docker build -t us-central1-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$IMAGE_NAME:staging .
         docker push us-central1-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$IMAGE_NAME:staging
@@ -49,7 +50,7 @@ jobs:
       with:
         service: ${{ env.SERVICE_NAME }}
         region: ${{ env.REGION }}
-        image: us-central1-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ env.IMAGE_NAME }}:staging
+        image: us-central1-docker.pkg.dev/${{ steps.auth.outputs.project_id }}/${{ env.REPO_NAME }}/${{ env.IMAGE_NAME }}:staging
         flags: --add-cloudsql-instances=maggiedavisart:us-central1:art-gallery-db
         env_vars: |
           DATABASE_URL=${{ secrets.DATABASE_URL }}
