@@ -53,6 +53,7 @@ async fn main() {
         .route("/api/shop", get(handlers::shop::get_shop_data))
         .route("/api/about", get(handlers::about::get_about_data))
         .route("/api/contact", get(handlers::contact::get_contact_data))
+        .route("/api/products", axum::routing::post(handlers::admin::add_product))
         .nest_service("/assets", tower_http::services::ServeDir::new("frontend/dist/assets"))
         .nest_service("/favicon.ico", tower_http::services::ServeDir::new("frontend/dist/favicon.ico"))
         .fallback(spa_fallback)
