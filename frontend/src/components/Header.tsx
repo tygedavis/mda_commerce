@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 
 const Header: React.FC = () => {
+    const { cartCount } = useCart();
+
     return (
         <header className="fixed w-full z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100 transition-all duration-300 text-art-black">
             <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
@@ -17,11 +20,11 @@ const Header: React.FC = () => {
                     <Link to="/contact" className="flex items-center px-6 transition-all duration-300 hover:bg-art-black hover:text-art-gold">Contact</Link>
                 </nav>
 
-                {/* Cart / Actions (Placeholder) */}
+                {/* Cart / Actions */}
                 <div className="flex items-center space-x-6">
-                    <button className="hover:text-art-gold transition-colors">
-                        Cart (0)
-                    </button>
+                    <Link to="/checkout" className="hover:text-art-gold transition-colors">
+                        Cart ({cartCount})
+                    </Link>
                 </div>
             </div>
         </header>
