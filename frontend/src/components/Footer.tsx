@@ -36,8 +36,9 @@ const Footer: React.FC = () => {
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto mt-16 pt-8 border-t border-gray-800 text-center text-xs text-gray-500 tracking-wide">
-                &copy; {new Date().getFullYear()} Artist Name. All rights reserved.
+            <div className="max-w-7xl mx-auto mt-16 pt-8 border-t border-gray-800 text-center text-xs text-gray-500 tracking-wide flex flex-col md:flex-row justify-between items-center">
+                <span>&copy; {new Date().getFullYear()} Artist Name. All rights reserved.</span>
+                <a href="/admin/login" className="mt-2 md:mt-0 hover:text-white transition-colors">Admin Login</a>
             </div>
         </footer>
     );

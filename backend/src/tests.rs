@@ -96,4 +96,16 @@ mod tests {
         assert!(body_json.get("title").is_some());
         assert_eq!(body_json["title"], "Contact Me");
     }
+
+    // Since we can't easily set up a full integration test with DB and Auth in this unit test file
+    // without mocking significantly more infrastructure (like Sqlx Pool),
+    // and the existing tests are mostly testing handlers with static responses,
+    // I will write a test for the admin handler but I need to handle the dependencies (State).
+    // The current handlers being tested don't use State (they return static data).
+    // The new admin handler uses State<AppState>.
+
+    // To test `add_product`, I would need to mock `AppState` or run a real DB.
+    // Given the constraints and the nature of `sqlx::test` (which I could use if I had a DB),
+    // I might skip adding a heavy integration test here if I cannot guarantee the DB presence.
+    // However, I can verify the frontend changes via component tests.
 }

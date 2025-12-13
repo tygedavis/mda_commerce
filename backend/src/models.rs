@@ -1,4 +1,5 @@
 use serde::{Serialize, Deserialize};
+use uuid::Uuid;
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct HeroSection {
@@ -15,6 +16,26 @@ pub struct Artwork {
     pub price: String,
     pub image_url: String,
     pub description: String,
+}
+
+// Matching the database schema
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct Product {
+    pub id: Uuid,
+    pub title: String,
+    pub description: Option<String>,
+    pub price: i32, // Stored in cents
+    pub image_url: Option<String>,
+    pub status: String,
+    // created_at is handled by DB default
+}
+
+#[derive(Deserialize, Debug)]
+pub struct CreateProductRequest {
+    pub title: String,
+    pub description: Option<String>,
+    pub price: i32, // Cents
+    pub image_url: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Clone)]
