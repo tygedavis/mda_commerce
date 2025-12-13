@@ -7,8 +7,10 @@ use axum::{
 };
 use serde_json::{Value, json};
 use tower_http::cors::{CorsLayer, Any};
+use axum::http::Method;
 use std::net::SocketAddr;
 use sqlx::PgPool;
+use std::env;
 
 mod models;
 mod handlers;
@@ -41,10 +43,22 @@ async fn main() {
     let state = AppState { pool };
 
     // CORS configuration
-    let cors = CorsLayer::new()
-        .allow_origin(Any)
-        .allow_methods(Any)
-        .allow_headers(Any);
+    let allowed_origins_str = env::var("ALLOWED_ORIGINS").unwrap_or_else(|_| "*".to_string());
+    let cors = if allowed_origins_str == "*" {
+        CorsLayer::new()
+            .allow_origin(Any)
+            .allow_methods([Method::GET, Method::HEAD, Method::OPTIONS])
+            .allow_headers(Any)
+    } else {
+        let origins: Vec<_> = allowed_origins_str
+            .split(',')
+            .map(|s| s.trim().parse().expect("Invalid origin"))
+            .collect();
+        CorsLayer::new()
+            .allow_origin(origins)
+            .allow_methods([Method::GET, Method::HEAD, Method::OPTIONS])
+            .allow_headers(Any)
+    };
 
     // Serve frontend static files
     let app = Router::new()
