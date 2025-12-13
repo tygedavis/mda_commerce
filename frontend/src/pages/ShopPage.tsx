@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import type { ShopPageData } from '../types';
+import { useCart } from '../context/CartContext';
 
 const ShopPage: React.FC = () => {
     const [data, setData] = useState<ShopPageData | null>(null);
     const [loading, setLoading] = useState(true);
+    const { addToCart } = useCart();
 
     useEffect(() => {
         fetch('/api/shop')
@@ -41,7 +43,7 @@ const ShopPage: React.FC = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {data.items.map((item) => (
-                        <div key={item.id} className="group cursor-pointer">
+                        <div key={item.id} className="group">
                             <div className="aspect-[4/5] overflow-hidden bg-gray-100 mb-4 relative">
                                 <img
                                     src={item.image_url}
@@ -49,9 +51,12 @@ const ShopPage: React.FC = () => {
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                 />
                                 <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                    <span className="text-white uppercase tracking-widest text-sm border border-white px-6 py-2 hover:bg-white hover:text-black transition-colors">
-                                        View Details
-                                    </span>
+                                    <button
+                                        onClick={() => addToCart(item)}
+                                        className="text-white uppercase tracking-widest text-sm border border-white px-6 py-2 hover:bg-white hover:text-black transition-colors cursor-pointer"
+                                    >
+                                        Add to Cart
+                                    </button>
                                 </div>
                             </div>
                             <div className="text-center">
